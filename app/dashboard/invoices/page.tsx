@@ -8,6 +8,7 @@ import { Suspense } from 'react';
  import { fetchInvoicesPages } from '@/app/lib/data';
 
 export default async function Page(props: {
+  // Table component is server side, use searchParams instead of useSearchParams hook 
   searchParams?: Promise<{
     query?: string;
     page?: string;

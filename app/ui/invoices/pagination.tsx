@@ -8,6 +8,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 export default function Pagination({ totalPages }: { totalPages: number }) {
   
   const pathname = usePathname();
+  // get current page from url params
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
   const allPages = generatePagination(currentPage, totalPages);
@@ -15,6 +16,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
     params.set('page', pageNumber.toString());
+    // set new url keeping the current page updated
     return `${pathname}?${params.toString()}`;
   };
 
@@ -24,6 +26,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
       <div className="inline-flex">
         <PaginationArrow
           direction="left"
+          // updates the current url param
           href={createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
@@ -51,6 +54,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
         <PaginationArrow
           direction="right"
+          // updates the current url param
           href={createPageURL(currentPage + 1)}
           isDisabled={currentPage >= totalPages}
         />
